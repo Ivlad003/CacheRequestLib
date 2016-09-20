@@ -43,7 +43,7 @@ public class TestObject extends ObjectSaver {
                 removeCatch();
             }
         });
-        Log.d("TestObject2","TestObject2");
+        Log.d("TestObject","TestObject");
     }
 }
 ```
