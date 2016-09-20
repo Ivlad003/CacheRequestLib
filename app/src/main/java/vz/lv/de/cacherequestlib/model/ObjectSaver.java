@@ -4,7 +4,6 @@ package vz.lv.de.cacherequestlib.model;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.os.Environment;
 
 import java.io.File;
 import java.io.Serializable;
@@ -41,7 +40,6 @@ public abstract class ObjectSaver implements Serializable {
     public void start() {
         if (mContext == null)
             throw new RuntimeException("Context is null!");
-
         if (isOnline(mContext)) {
             run(mContext);
         } else {
@@ -49,15 +47,30 @@ public abstract class ObjectSaver implements Serializable {
         }
     }
 
-    public abstract void run(Context context);
+    public void startAsync() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                if (mContext == null)
+                    throw new RuntimeException("Context is null!");
+                if (isOnline(mContext)) {
+                    ObjectSaver.this.run(mContext);
+                } else {
+                    saveIfNoInternet();
+                }
+            }
+        }).start();
+    }
 
-    public void saveIfNoInternet() {
-        new LoadMap().save(this);
+    protected abstract void run(Context context);
+
+    protected void saveIfNoInternet() {
+        new LoadMap(mContext).save(this);
     }
 
     public void removeCatch() {
-        File file = new File(Environment.getExternalStorageDirectory()
-                .getAbsolutePath() + "/folderName/" + getNameCatchFile() + ".ser");
+        File file = new File(mContext.getCacheDir().getAbsolutePath()
+                + LoadMap.folderName + getNameCatchFile() + ".ser");
         file.delete();
     }
 

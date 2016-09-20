@@ -24,9 +24,9 @@ dependencies {
 
 publish {
     groupId = 'com.github.ivlad003'
-    artifactId = 'cacherequestlib'
-    version = "1.0.4"
-    repoName="CacheRequestLib"
+    artifactId = 'CacheRequestLib'
+    version = "0.3"
+    repoName="cacherequestlib"
     description = 'Super duper easy way to release your Android and other artifacts to bintray'
-    website = 'https://github.com/Ivlad003/SmilesLib'
+    website = 'https://github.com/Ivlad003/Cacherequestlib.git'
 }

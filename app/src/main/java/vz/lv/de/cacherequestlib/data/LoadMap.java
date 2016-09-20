@@ -1,7 +1,6 @@
 package vz.lv.de.cacherequestlib.data;
 
 import android.content.Context;
-import android.os.Environment;
 import android.util.Log;
 
 import java.io.File;
@@ -10,15 +9,14 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import vz.lv.de.cacherequestlib.model.ObjectSaver;
 
 
 public class LoadMap {
 
+    public static String folderName= "/vzlvdecacherequestlibloadmap/";
     Context context;
 
     public LoadMap(Context context) {
@@ -31,7 +29,7 @@ public class LoadMap {
 
     public void save(Object o) {
         try {
-            final File dir = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/folderName/");
+            final File dir = new File(context.getCacheDir()+folderName);
             if (!dir.exists()) {
                 if (!dir.mkdirs()) {
                     Log.e("ALERT", "could not create the directories");
@@ -45,7 +43,7 @@ public class LoadMap {
             ObjectSaver objectSaver = (ObjectSaver) o;
             objectSaver.setNameCatchFile(String.valueOf(time));
             objectSaver.setContext(null);
-            FileOutputStream fout = new FileOutputStream(Environment.getExternalStorageDirectory().getAbsolutePath() + "/folderName/" + time + ".ser");
+            FileOutputStream fout = new FileOutputStream(context.getCacheDir()+folderName + time + ".ser");
             ObjectOutputStream oos = new ObjectOutputStream(fout);
             oos.writeObject(objectSaver);
             oos.close();
@@ -55,13 +53,11 @@ public class LoadMap {
         }
     }
 
-    public List<ObjectSaver> readFile() {
+    public void readFile() {
         if (context == null)
             throw new RuntimeException("Context is null!");
-
-        List<ObjectSaver> objectSavers = new ArrayList<>();
         try {
-            File file = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/folderName/");
+            File file = new File(context.getCacheDir()+folderName);
             for (File file1 : file.listFiles()) {
                 ObjectInputStream input = new ObjectInputStream(new FileInputStream(file1));
                 ObjectSaver myPersonObject = (ObjectSaver) input.readObject();
@@ -73,6 +69,5 @@ public class LoadMap {
             Log.e("ALERT", "readFile " + e.toString());
             e.printStackTrace();
         }
-        return objectSavers;
     }
 }
