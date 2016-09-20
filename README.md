@@ -33,7 +33,7 @@ public class TestObject extends ObjectSaver {
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 try {
                     Log.d("TestObject", "response " + response.body().string());
-                    removeCatch();
+                    removeCatch(); // this for clear this cache.
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -41,7 +41,7 @@ public class TestObject extends ObjectSaver {
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-                removeCatch();
+                removeCatch(); // this for clear this cache.
             }
         });
         Log.d("TestObject","TestObject");
