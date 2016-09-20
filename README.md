@@ -1,7 +1,7 @@
 # SmilesLib
 
 
-<a href='https://bintray.com/ivlad003/cacherequestlib/CacheRequestLib?source=watch' alt='Get automatic notifications about new "CacheRequestLib" versions'><img src='https://www.bintray.com/docs/images/bintray_badge_color.png'></a>  | Version 0.0.1 |
+<a href='https://bintray.com/ivlad003/cacherequestlib/CacheRequestLib?source=watch' alt='Get automatic notifications about new "CacheRequestLib" versions'><img src='https://www.bintray.com/docs/images/bintray_badge_color.png'></a>  | Version 0.1 |
 | ------------- | ------------- |
 
 ```gradle
@@ -65,16 +65,22 @@ public class MainActivity extends AppCompatActivity {
 ## AndroidManifest.xml
 
 ```xml
+<manifest>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-
-    <receiver android:name="vz.lv.de.cacherequestlib.listener.ListenerEnableInternet">
+    ...
+    <application>
+        <receiver android:name="vz.lv.de.cacherequestlib.listener.ListenerEnableInternet">
             <intent-filter>
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
                 <action android:name="android.net.wifi.WIFI_STATE_CHANGED" />
             </intent-filter>
-    </receiver>
+        </receiver>
+       ...
+    </application>
+    
+</manifest>
 ```
 License
 ----
