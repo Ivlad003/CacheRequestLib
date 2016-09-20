@@ -1,0 +1,32 @@
+apply plugin: 'com.android.library'
+apply plugin: 'com.novoda.bintray-release'
+
+android {
+    compileSdkVersion 24
+    buildToolsVersion "23.0.3"
+    defaultConfig {
+        minSdkVersion 15
+        targetSdkVersion 24
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+}
+
+publish {
+    groupId = 'com.github.ivlad003'
+    artifactId = 'cacherequestlib'
+    version = "1.0.4"
+    repoName="CacheRequestLib"
+    description = 'Super duper easy way to release your Android and other artifacts to bintray'
+    website = 'https://github.com/Ivlad003/SmilesLib'
+}
